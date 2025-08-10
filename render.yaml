@@ -2,11 +2,11 @@ services:
   - type: web
     plan: free
     name: n8n-service
-    runtime: container  # Changed from "docker"
+    runtime: container
     build:
       dockerfile: Dockerfile
       context: .
-    dependsOn:  # Ensure DB is created first
+    dependsOn:
       - n8n-db
     envVars:
       - key: N8N_ENCRYPTION_KEY
@@ -31,6 +31,9 @@ services:
           property: user
       - key: DOCKER_CLI_EXPERIMENTAL
         value: enabled
+    # Add required health check and port
+    healthCheckPath: /healthz
+    port: 5678
 
 databases:
   - name: n8n-db
