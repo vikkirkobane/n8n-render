@@ -2,11 +2,12 @@ services:
   - type: web
     plan: free
     name: n8n-service
-    # Switch from pre-built image to custom Dockerfile
-    runtime: docker
+    runtime: container  # Changed from "docker"
     build:
       dockerfile: Dockerfile
       context: .
+    dependsOn:  # Ensure DB is created first
+      - n8n-db
     envVars:
       - key: N8N_ENCRYPTION_KEY
         generateValue: true
@@ -28,7 +29,6 @@ services:
         fromDatabase:
           name: n8n-db
           property: user
-      # Add Docker CLI specific variables if needed
       - key: DOCKER_CLI_EXPERIMENTAL
         value: enabled
 
