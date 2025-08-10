@@ -3,11 +3,6 @@ services:
     plan: free
     name: n8n-service
     runtime: container
-    build:
-      dockerfile: Dockerfile
-      context: .
-    dependsOn:
-      - n8n-db
     envVars:
       - key: N8N_ENCRYPTION_KEY
         generateValue: true
@@ -32,7 +27,6 @@ services:
       - key: DOCKER_CLI_EXPERIMENTAL
         value: enabled
     healthCheckPath: /healthz
-    port: 5678
 
 databases:
   - name: n8n-db
