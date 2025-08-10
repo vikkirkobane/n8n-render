@@ -31,7 +31,6 @@ services:
           property: user
       - key: DOCKER_CLI_EXPERIMENTAL
         value: enabled
-    # Add required health check and port
     healthCheckPath: /healthz
     port: 5678
 
